@@ -7,17 +7,12 @@ int main(void) {
     int num_of_accounts = 0;
     int user_choice;
     int balance = 0;
-    char main_menu;
+    char main_menu = 'Y';
     int user_account;
     int transfer_amount;
     int i;
 
     struct account_details accounts[100];
-    FILE *fptr;
-    fptr = fopen("Accounts.txt", "w");
-    fprintf(fptr, "Name:   Account Number:\n");
-    printf("Would you like to go to the menu? Y/N");
-    scanf(" %c", &main_menu);
     while (main_menu == 'Y') {
         printf("Please pick an option:\n");
         printf("1. Create new account\n");
@@ -31,8 +26,18 @@ int main(void) {
             printf("Please enter your name:\n");
             scanf(" %s", accounts[num_of_accounts].name);
 
-            printf("Please create a pin number:\n");
-            scanf(" %s", accounts[num_of_accounts].pin_number);  
+            printf("Please create a 4 digit pin number:\n");
+            scanf(" %s", accounts[num_of_accounts].pin_number); 
+            while (strlen(accounts[num_of_accounts].pin_number) != 4) {
+                if (strlen(accounts[num_of_accounts].pin_number) > 4) {
+                    printf("That pin number is too long. Please enter a valid pin number:");
+                    scanf(" %s", accounts[num_of_accounts].pin_number); 
+            }
+                else if (strlen(accounts[num_of_accounts].pin_number) < 4) {
+                    printf("That pin number is too short. Please enter a valid pin number:");
+                    scanf(" %s", accounts[num_of_accounts].pin_number); 
+            }
+        }
 
             //fptr = fopen("Accounts.txt", "r");
             
@@ -40,7 +45,7 @@ int main(void) {
             printf("Your account number is: %d\n",  num_of_accounts); 
             printf("Your balance is: %d\n",  balance);
 
-            fprintf(fptr, " %s %d %d\n", accounts[num_of_accounts].name, num_of_accounts, accounts[num_of_accounts].balance);
+            
         
             num_of_accounts++;
             printf("Would you like to go back to the menu? Y/N\n");
@@ -54,7 +59,8 @@ int main(void) {
             
             for (i = 0; i < num_of_accounts; i++){
                 if (accounts[user_account].account_number == accounts[i].account_number){
-                    fprintf(fptr, "%d ", accounts[i].balance += transfer_amount);
+                    accounts[i].balance += transfer_amount;
+                    
 
                 }   
             }
@@ -64,18 +70,17 @@ int main(void) {
         
         //view balance
         else if (user_choice == 3) {
-            printf("What is your account number?");
+            printf("What is your account number?\n");
             scanf(" %d", &user_account);
             for (i = 0; i < num_of_accounts; i++){
                 if (accounts[user_account].account_number == accounts[i].account_number){
-                    fptr = fopen("Accounts.txt", "r");
-                    fprintf(fptr, "%d ", accounts[i].balance);
+                    printf("Your balance is: %d \n", accounts[user_account].balance);
                 }
 
         }
-    }
-    printf("Would you like to go back to the menu? Y/N\n");
+            printf("Would you like to go back to the menu? Y/N\n");
             scanf(" %c", &main_menu);
+    }
     }
         
     return 0;
