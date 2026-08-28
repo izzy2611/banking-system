@@ -12,7 +12,10 @@ int main(void) {
     int transfer_amount;
     int i;
 
+    //creates an array of accounts
     struct account_details accounts[100];
+
+    //creates a loop so that the user can decide if they want to go back to main menu and pick an option
     while (main_menu == 'Y') {
         printf("Please pick an option:\n");
         printf("1. Create new account\n");
@@ -21,11 +24,13 @@ int main(void) {
 
         scanf(" %d", &user_choice);
 
+        //if they choose option one they can enter their name and a pin number and it gives them their account number and balance
         if (user_choice == 1) {
 
             printf("Please enter your name:\n");
             scanf(" %s", accounts[num_of_accounts].name);
 
+            //validates that the pin number is 4 digits
             printf("Please create a 4 digit pin number:\n");
             scanf(" %s", accounts[num_of_accounts].pin_number); 
             while (strlen(accounts[num_of_accounts].pin_number) != 4) {
@@ -39,7 +44,7 @@ int main(void) {
             }
         }
 
-            //fptr = fopen("Accounts.txt", "r");
+           
             
 
             printf("Your account number is: %d\n",  num_of_accounts); 
@@ -51,12 +56,14 @@ int main(void) {
             printf("Would you like to go back to the menu? Y/N\n");
             scanf(" %c", &main_menu);
     }
+            //if they pick option two they can enter their account number and the amount they would like to deposit and it will add this to the balance
         else if(user_choice == 2) {
             printf("Please enter your account number:\n");
             scanf(" %d", &user_account);
             printf("How much would you like to transfer?");
             scanf(" %d", &transfer_amount);
-            
+
+            //finds the correct account to transfer the money to
             for (i = 0; i < num_of_accounts; i++){
                 if (accounts[user_account].account_number == accounts[i].account_number){
                     accounts[i].balance += transfer_amount;
@@ -68,7 +75,7 @@ int main(void) {
             scanf(" %c", &main_menu);
     }
         
-        //view balance
+        //if they pick option 3 they can enter their account number and view their balance
         else if (user_choice == 3) {
             printf("What is your account number?\n");
             scanf(" %d", &user_account);
